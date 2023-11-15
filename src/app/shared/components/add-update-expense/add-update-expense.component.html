@@ -1,0 +1,53 @@
+<app-header [isModal]="true" title="Ingrese gastos"></app-header>
+<ion-content>
+  <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+    <app-logo style="margin-bottom: -10%;"></app-logo>
+
+    <!-- Input gasto -->
+    <app-custom-input   
+    icon="cash-outline" 
+    type="number" 
+    label="Gasto" 
+    [control]="form.controls.amount"></app-custom-input>
+
+
+    <!-- Selección de Categoría -->
+    <ion-item class="custom-input" lines="none">
+      <ion-icon name="calendar-outline" slot="start"></ion-icon>
+      <ion-select  interface="popover" placeholder="Selecciona la categoría" style="color: black;" formControlName="category">
+        <ion-select-option value="client" color="dark">Cliente</ion-select-option>
+        <ion-select-option value="admin" >Admin</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+      <!--
+      <ion-item class="custom-input" lines="none">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        <ion-label>{{defaultDate}}</ion-label>
+      </ion-item>
+      -->
+
+
+    <!-- Input Fecha y validacion -->
+    <ion-item>    
+      <ion-label>Fecha</ion-label>
+      <ion-datetime 
+        presentation="date"
+        placeholder="Selecciona una fecha" 
+        [min]="minDate" 
+        [max]="maxDate" 
+        [value]="form.controls.date.value || defaultDate" 
+        type="text"
+        formControlName="date"
+        >
+      </ion-datetime>
+    </ion-item>
+
+    <!-- Boton Crear cuenta -->
+    <ion-button  expand="block"  mode="ios" class="submit" type="submit" [disabled]="form.invalid">
+      Agregar
+    </ion-button>
+
+  </form>
+</ion-content>

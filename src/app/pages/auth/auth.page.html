@@ -1,0 +1,49 @@
+
+
+<ion-content>
+  <div class="d-flex-center">
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+      <app-logo></app-logo>
+
+      <!-- Input Correo y validacion -->
+      <app-custom-input 
+      autoComplete="email" 
+      icon="mail-outline" 
+      type="email" 
+      label="Correo" 
+      [control]="form.controls.email"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
+        <div *ngIf="form.controls.email.errors?.['required']"><p class="ion-text-start">El correo es requerido</p></div>
+        <div *ngIf="form.controls.email.errors?.['email']"><p class="ion-text-start">Ingrese correo valido</p></div>
+      </div>
+
+      <!-- Input Contraseña y validacion-->
+      <app-custom-input 
+      autoComplete="password" 
+      icon="lock-closed-outline" 
+      type="password" 
+      label="Contraseña" 
+      [control]="form.controls.password"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
+        <div *ngIf="form.controls.password.errors?.['required']"><p class="ion-text-start">La Contraseña es requerida</p></div>
+        <div *ngIf="form.controls.password.errors?.['minLength']"><p class="ion-text-start">La Contraseña debe tener al menos 6 caracteres</p></div>
+        <div *ngIf="form.controls.password.errors?.['maxLength']"><p class="ion-text-start">La Contraseña debe tener al como maximo 12 caracteresa</p></div>
+      </div>
+
+      <p routerLink="forgot-password" class="ion-text-end forgotPassword">¿Olvidaste tu contraseña?</p>
+
+      <!-- Boton Iniciar sesion -->
+      <ion-button  expand="block"  mode="ios" class="submit signUp" type="submit" [disabled]="form.invalid">
+        Ingresar
+      </ion-button>
+
+      <ion-button routerLink="sign-up" class="ion-margin-top" expand="block"  mode="ios" fill="outline">
+        Registrarse
+      </ion-button>
+
+    </form>
+  </div>
+</ion-content>

@@ -1,0 +1,26 @@
+<app-header title="Inicio"></app-header>
+
+<!-- Nuevo gasto -->
+<ion-content [fullscreen]="true">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addUpdateExpense()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Lista de gastos -->
+  <ion-list>
+    <ion-title>Gastos</ion-title>
+    <ion-item-sliding *ngFor="let e of expenses">
+      <ion-item>
+        <ion-label color="danger">- {{e.amount}}</ion-label>
+        <p>{{ e.date | date:'dd-MM-yyyy'}}</p>
+      </ion-item>    
+    </ion-item-sliding>
+  </ion-list>
+
+  
+
+  
+
+</ion-content>

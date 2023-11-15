@@ -1,0 +1,19 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+
+        <ion-buttons slot="start">
+            <!-- Botón para retroceder-->
+            <ion-back-button *ngIf="backButton" [defaultHref]="backButton"></ion-back-button>
+            
+            <!-- Botón para cerrar Modal-->
+            <ion-button (click)="dismissModal()" *ngIf="isModal">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title>
+            <strong>{{title}}</strong>
+           <!-- <div class="admin">Nombre proyecto</div> -->
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
