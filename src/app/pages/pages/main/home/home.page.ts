@@ -4,6 +4,8 @@ import { Expense } from 'src/app/models/expenses.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateExpenseComponent } from 'src/app/shared/components/add-update-expense/add-update-expense.component';
+import { orderBy } from 'firebase/firestore';
+
 
 @Component({
   selector: 'app-home',
@@ -14,10 +16,11 @@ export class HomePage implements OnInit {
 
   constructor(private firebaseSvc : FirebaseService, private utilSvc : UtilsService) { }
 
+  expenses: Expense[] = [];
+  loading: boolean = false;
+
   ngOnInit() {
   }
-
-  expenses: Expense[] = [];
 
   // Agregar gastos
   addUpdateExpense() {
@@ -41,10 +44,19 @@ export class HomePage implements OnInit {
   getExpenses(){
     let path = `users/${this.user().uid}/expense`;
 
-    let sub = this.firebaseSvc.getCollectionData(path).subscribe({
+    this.loading = true;
+
+    let query = (
+      orderBy('date', 'desc')
+    )
+
+    let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
       next: (res: any) =>{
         console.log(res);
         this.expenses = res;
+
+        this.loading = false;
+
         sub.unsubscribe();
       }
     })

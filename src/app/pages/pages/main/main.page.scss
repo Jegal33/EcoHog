@@ -1,0 +1,116 @@
+// ion-menu ion-content {
+//     --background: var(--ion-item-background, var(--ion-background-color, #25242a));
+//   }
+  
+//   ion-menu { 
+//     --ion-background-color: #25242a;
+//   }
+  
+  ion-menu.md ion-content {
+    --padding-start: 8px;
+    --padding-end: 8px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+  }
+  
+  ion-menu.md ion-list {
+    padding: 20px 0;
+  }
+  
+  ion-menu.md ion-note {
+    margin-bottom: 30px;
+  }
+  
+  ion-menu.md ion-list-header,
+  ion-menu.md ion-note {
+    padding-left: 10px;
+    font-size: 14px;
+  }
+  
+  ion-menu.md ion-list#inbox-list {
+    border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
+  }
+  
+  ion-menu.md ion-list#inbox-list ion-list-header {
+    font-size: 14px;
+    font-weight: 600;
+  
+    min-height: 20px;
+    margin-top: 10px;
+  }
+  
+  ion-menu.md ion-list#labels-list ion-list-header {
+    font-size: 16px;
+  
+    margin-bottom: 18px;
+  
+//    color: #757575;
+  
+    min-height: 26px;
+  }
+  
+  ion-menu.md ion-item {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    border-radius: 40px;
+  }
+  
+  ion-menu.md ion-item.selected {
+    --background: rgba(var(--ion-color-primary-rgb), 0.14);
+  }
+  
+  ion-menu.md ion-item.selected ion-icon {
+    color: var(--ion-color-primary);
+  }
+  
+//   ion-menu.md ion-item ion-icon {
+//     color: #f7f7f7;
+//   }
+  
+  ion-menu.md ion-item ion-label {
+    font-weight: 500;
+  }
+  
+  ion-note {
+    display: inline-block;
+    font-size: 16px;
+  
+    color: var(--ion-color-medium-shade);
+  }
+  
+  ion-item.selected {
+    --color: var(--ion-color-primary);
+  }
+  
+  ion-menu::part(container) {
+    border-radius: 0px 10px 10px 0px;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .menu-image {
+    width: 50px; /* Tamaño de la imagen */
+    height: 50px; /* Tamaño de la imagen */
+    border-radius: 50%; /* Hace que la imagen sea circular */
+    margin-left: 12px; /* Espacio entre la imagen y el texto */
+  }
+  
+  .menu-text {
+    margin-top: 15px;
+  }
+  
+  .linea {
+    border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
+  }
+  
+//   .texto {
+//     color: #ffffff;
+//   }
+  
+//   ion-menu ion-content .menu-header {
+//    color: #ffffff;
+//   }
+  
