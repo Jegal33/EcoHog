@@ -7,11 +7,11 @@
       <app-logo></app-logo>
 
       <!-- Input Correo y validacion -->
-      <app-custom-input 
-      autoComplete="email" 
-      icon="mail-outline" 
-      type="email" 
-      label="Correo" 
+      <app-custom-input
+      autoComplete="email"
+      icon="mail-outline"
+      type="email"
+      label="Correo"
       [control]="form.controls.email"></app-custom-input>
 
       <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
@@ -20,11 +20,11 @@
       </div>
 
       <!-- Input Contraseña y validacion-->
-      <app-custom-input 
-      autoComplete="password" 
-      icon="lock-closed-outline" 
-      type="password" 
-      label="Contraseña" 
+      <app-custom-input
+      autoComplete="password"
+      icon="lock-closed-outline"
+      type="password"
+      label="Contraseña"
       [control]="form.controls.password"></app-custom-input>
 
       <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
@@ -43,6 +43,13 @@
       <ion-button routerLink="sign-up" class="ion-margin-top" expand="block"  mode="ios" fill="outline">
         Registrarse
       </ion-button>
+
+      <!--Código del Pokémon aleatorio aquí -->
+
+      <div *ngIf="pokemon" (click)="updatePokemonSprite()">
+        <img [src]="pokemon.spriteUrl" alt="Imagen del Pokémon" class="menu-image">
+        <!--<p>Este Pokemon se llama:{{ pokemonName }}</p>-->
+      </div>
 
     </form>
   </div>

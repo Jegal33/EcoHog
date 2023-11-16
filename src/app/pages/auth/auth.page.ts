@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { PokemonService } from '../../services/pokemon.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -10,6 +11,16 @@ import { UtilsService } from 'src/app/services/utils.service';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
+
+  constructor(
+    private pokemonService: PokemonService
+  ) {}
+
+  pokemon = {
+    name: '',
+    spriteUrl: ''
+  };
+
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -20,9 +31,10 @@ export class AuthPage implements OnInit {
   utilsSvc = inject(UtilsService)
 
   ngOnInit() {
+    this.getPokemonSprite();
   }
 
-  // Inicia sesión  
+  // Inicia sesión
   async submit(){
     if (this.form.value){
 
@@ -33,7 +45,7 @@ export class AuthPage implements OnInit {
 
         this.getUserInfo(res.user.uid);
 
-      }).catch(error => { 
+      }).catch(error => {
         console.log(error);
         this.utilsSvc.presentToast("Error")
       }).finally(() => {
@@ -58,7 +70,7 @@ export class AuthPage implements OnInit {
 
         this.utilsSvc.presentToast("Bienvenido")
 
-      }).catch(error => { 
+      }).catch(error => {
         console.log(error);
         this.utilsSvc.presentToast("Error")
 
@@ -66,5 +78,26 @@ export class AuthPage implements OnInit {
         //loading.dismiss();
       })
     }
+  }
+
+  //Metodo para obtener el sprite
+  getPokemonSprite() {
+    this.pokemonService.getRandomPokemon().then(spriteUrl => {
+      this.pokemon = {
+        name: null,
+        spriteUrl: spriteUrl
+      };
+    });
+  }
+
+  //Metodo para actualizar al sprite
+  updatePokemonSprite() {
+    console.log('Actualizando imagen del Pokémon...');
+    this.pokemonService.getRandomPokemon().then(spriteUrl => {
+      this.pokemon = {
+        name: null,
+        spriteUrl: spriteUrl
+      };
+    });
   }
 }
