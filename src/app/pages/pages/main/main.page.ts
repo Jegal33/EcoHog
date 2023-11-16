@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-main',
@@ -8,13 +10,19 @@ import { Component, OnInit } from '@angular/core';
 export class MainPage implements OnInit {
 
   pages = [
-    {title: 'Inicio', url: 'home', icon: 'home-outline'},
-    //{title: 'perfil', url: 'profile', icon: 'settings-outline' }
+    { title: 'Configuración', url: 'home', icon: 'settings-outline' },
+    { title: 'Ayuda', url: 'home', icon: 'help-circle-outline' }
   ]
 
-  constructor() { }
+  constructor(private utilSvc: UtilsService) { }
 
   ngOnInit() {
   }
+
+
+    // Obtener datos del usuario del almacenamiento local
+    user(): User{
+      return this.utilSvc.getFromLocalStorage('user');
+    }
 
 }

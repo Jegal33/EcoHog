@@ -23,6 +23,21 @@
     </ion-item-sliding>
   </ion-list>
 
+  <!-- Loading -->
+  <ion-list *ngIf="loading">
+    <ion-title>Gastos</ion-title>
+    <ion-item-sliding *ngFor="let e of [1,1,1,1,1,1]">
+      <ion-item>
+        <ion-skeleton-text animated style="width: 98%"></ion-skeleton-text>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+
+    <!-- Sin gastos -->
+  <div *ngIf="!loading && !expenses.length" class="empty">
+    <ion-icon name="cash"></ion-icon>
+    <h3>Sin gastos</h3>
+  </div>
  <ion-button (click)="signOut()">Cerrar sesión</ion-button>
 
 

@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
+
 @Component({
   selector: 'app-add-update-expense',
   templateUrl: './add-update-expense.component.html',
@@ -41,15 +42,19 @@ export class AddUpdateExpenseComponent  implements OnInit {
   ngOnInit() {
   }
 
+  //
   async submit(){
     if (this.form.value){
-      this.setExpensesInfo();
+      this.addExpense();
       this.utilsSvc.dismissModal();
     }
   }
 
+  // Convierte string en number
 
-  async setExpensesInfo(){
+
+  // Agrega gasto
+  async addExpense(){
     if (this.form.value){
 
       const loading = await this.utilsSvc.loading();
