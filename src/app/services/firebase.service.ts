@@ -14,7 +14,7 @@ export class FirebaseService {
   auth = inject (AngularFireAuth)
   firesore = inject(AngularFirestore)
   utilsSvc = inject(UtilsService)
-  
+
 
     // ============= Auntenticación ======================
 
@@ -23,17 +23,17 @@ export class FirebaseService {
     return getAuth();
   }
 
-  // Inicia sesión 
+  // Inicia sesión
   signIn(user: User){
     return signInWithEmailAndPassword(getAuth(), user.email, user.password);
   }
 
-  // Crea usuario 
+  // Crea usuario
   signUp(user: User){
     return createUserWithEmailAndPassword(getAuth(), user.email, user.password);
   }
 
-  // Actualizar usuario 
+  // Actualizar usuario
   updateUser(displayName: string){
     return updateProfile(getAuth().currentUser, {displayName});
   }
@@ -52,8 +52,8 @@ export class FirebaseService {
   }
 
     // ============= Base de datos ======================
-  
-  // Setear un documento  
+
+  // Setear un documento
   setDocument(path: string, data:any){
     return setDoc(doc(getFirestore(), path), data);
   }
@@ -61,7 +61,7 @@ export class FirebaseService {
   // Obtener documento
   async getDocument(path: string){
     return (await getDoc(doc(getFirestore(), path))).data();
-  }  
+  }
 
   // agregar documento
   addDocument (path: string, data:any){
@@ -70,7 +70,7 @@ export class FirebaseService {
 
   // Obtener datos de una colección
   getCollectionData(path: string, collectionQuery?: any){
-    const ref = collection(getFirestore(), path)
+    const ref = collection(getFirestore(), path);
     return collectionData(query(ref,collectionQuery), {idField : 'id'})
   }
 

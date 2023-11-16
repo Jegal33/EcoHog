@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { Expense } from 'src/app/models/expenses.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateExpenseComponent } from 'src/app/shared/components/add-update-expense/add-update-expense.component';
@@ -16,7 +17,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
   }
 
-  expenses: any[] = [];
+  expenses: Expense[] = [];
 
   // Agregar gastos
   addUpdateExpense() {
@@ -39,15 +40,19 @@ export class HomePage implements OnInit {
   // Obtener gastos
   getExpenses(){
     let path = `users/${this.user().uid}/expense`;
-    
+
     let sub = this.firebaseSvc.getCollectionData(path).subscribe({
       next: (res: any) =>{
-        console.log(res)
+        console.log(res);
         this.expenses = res;
         sub.unsubscribe();
-      }   
+      }
     })
   }
 
-  
+  signOut(){
+    this.firebaseSvc.signOut()
+  }
+
+
 }

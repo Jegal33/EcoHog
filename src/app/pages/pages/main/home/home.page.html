@@ -13,14 +13,14 @@
     <ion-title>Gastos</ion-title>
     <ion-item-sliding *ngFor="let e of expenses">
       <ion-item>
-        <ion-label color="danger">- {{e.amount}}</ion-label>
+        <ion-label color="danger">- {{e.amount | currency}}</ion-label>
         <p>{{ e.date | date:'dd-MM-yyyy'}}</p>
-      </ion-item>    
+      </ion-item>
     </ion-item-sliding>
   </ion-list>
 
-  
+ <ion-button (click)="signOut()">Cerrar sesión</ion-button>
 
-  
+
 
 </ion-content>
