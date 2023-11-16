@@ -9,7 +9,7 @@ export class MainPage implements OnInit {
 
   pages = [
     {title: 'Inicio', url: 'home', icon: 'home-outline'},
-    {title: 'perfil', url: 'profile', icon: 'person-outline' }
+    //{title: 'perfil', url: 'profile', icon: 'settings-outline' }
   ]
 
   constructor() { }
