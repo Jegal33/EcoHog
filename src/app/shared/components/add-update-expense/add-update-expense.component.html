@@ -25,7 +25,6 @@
 
     <!-- Input Fecha y validacion -->
     <ion-item lines="none">    
-      <ion-label>Fecha</ion-label>
       <ion-datetime 
         presentation="date"
         placeholder="Selecciona una fecha" 
@@ -38,10 +37,20 @@
       </ion-datetime>
     </ion-item>
 
-    <!-- Boton Crear cuenta -->
+    <!-- Boton Crear gasto -->
     <ion-button  expand="block"  mode="ios" class="submit" type="submit" [disabled]="form.invalid">
       {{expense ? 'Modificar gasto': 'Ingrese gasto'}}
     </ion-button>
 
+    <!-- Boton eliminar gasto -->
+    <ion-button (click)="confirmDeleteExpense()" *ngIf="expense" expand="block"  mode="ios"  color="danger" [disabled]="form.invalid">
+      Eliminar
+    </ion-button>
+
   </form>
+
+
+
+
+  
 </ion-content>

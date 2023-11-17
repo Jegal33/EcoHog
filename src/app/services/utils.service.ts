@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, ModalController, ModalOptions, ToastController, ToastOptions } from '@ionic/angular';
+import { AlertController, AlertOptions, LoadingController, ModalController, ModalOptions, ToastController, ToastOptions } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class UtilsService {
   toastCtrl = inject(ToastController)
   modalCtrl = inject(ModalController)
   router = inject(Router);
+  alertCtrl = inject(AlertController)
 
   // pop up de carga
   loading(){
@@ -18,10 +19,11 @@ export class UtilsService {
   }
 
   // Mensaje en la parte baja
-  async presentToast(mensaje: string){
+  async presentToast(mensaje: string, color?: string){
     const toast = await this.toastCtrl.create({
       message: mensaje,
-      duration: 2500
+      duration: 2500,
+      color: color
     });
     toast.present();
   }
@@ -53,4 +55,11 @@ export class UtilsService {
   dismissModal(data?: any) {
     return this.modalCtrl.dismiss(data);
   }
+
+  // Alerta
+  async presentAlert(opts?: AlertOptions) {
+    const alert = await this.alertCtrl.create(opts);
+    await alert.present();
+  }
+
 }

@@ -13,10 +13,6 @@ ion-item-sliding {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-ion-item {
-    //padding: 10px;
-}
-
 ion-label {
     font-size: 18px; 
     font-weight: bold;
@@ -25,4 +21,8 @@ ion-label {
 p {
     font-size: 14px; 
     color: #777;
+}
+
+ion-content {
+    --padding-bottom: 100px;
 }

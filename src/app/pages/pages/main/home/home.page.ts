@@ -22,6 +22,15 @@ export class HomePage implements OnInit {
   ngOnInit() {
   }
 
+  // refrescar
+  doRefresh(event) { 
+    setTimeout(() => {
+      this.getExpenses();
+      event.target.complete();
+    }, 1000);
+  }
+
+
   // Agregar gastos
   async addUpdateExpense(expense?: Expense) {
     let success = await this.utilSvc.presentModal({
@@ -64,8 +73,9 @@ export class HomePage implements OnInit {
     })
   }
 
-  signOut(){
-    this.firebaseSvc.signOut()
+  // Sumar gastos
+  totalExpenses(){
+    return this.expenses.reduce((indide, expense) => indide + expense.amount, 0);
   }
 
 

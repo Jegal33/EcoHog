@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UtilsService } from 'src/app/services/utils.service';
 import { PokemonService } from 'src/app/services/pokemon.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-main',
@@ -21,17 +22,16 @@ export class MainPage implements OnInit {
   };
 
 
-  constructor(private utilSvc: UtilsService, private pokemonService: PokemonService) { }
+  constructor(private utilSvc: UtilsService, private pokemonService: PokemonService, private firebaseSvc: FirebaseService) { }
 
   ngOnInit() {
   }
 
 
-    // Obtener datos del usuario del almacenamiento local
-    user(): User{
-      return this.utilSvc.getFromLocalStorage('user');
-    }
-
+  // Obtener datos del usuario del almacenamiento local
+  user(): User{
+    return this.utilSvc.getFromLocalStorage('user');
+  }
 
   
   //Metodo para obtener el sprite
@@ -53,5 +53,14 @@ export class MainPage implements OnInit {
         spriteUrl: spriteUrl
       };
     });
+  }
+
+  ionViewDidEnter() {
+    this.getPokemonSprite();
+  }
+
+  // Cierra sesión
+  signOut(){
+    this.firebaseSvc.signOut()
   }
 }

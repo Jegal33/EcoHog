@@ -19,6 +19,7 @@ export class AddUpdateExpenseComponent  implements OnInit {
   currentDate = new Date();
 
   form = new FormGroup({
+    id: new FormControl('',),
     category: new FormControl('',[Validators.required]),
     amount: new FormControl(null, [Validators.required, Validators.min(1), Validators.pattern(/^\d+(\.\d{1,2})?$/)]),
     date: new FormControl(this.currentDate.toISOString(),[ Validators.required])
@@ -32,20 +33,49 @@ export class AddUpdateExpenseComponent  implements OnInit {
   // Obtiene la fecha actual para establecerla como valor predeterminado
   defaultDate = this.currentDate.toISOString();
 
-  
+
+  // Importaciones
   firebaseSvc = inject(FirebaseService)
   utilsSvc = inject(UtilsService)
 
-  mostrarValores() {
-    console.log(this.form.value);
-  }
 
+
+  // Obtiene usuario
   user = {} as User;
    
   ngOnInit() {
     this.user = this.utilsSvc.getFromLocalStorage('user');
 
     if (this.expense) this.form.setValue(this.expense);
+  }
+
+
+  // Convierte string en number
+  setNumberInputs(){
+    let {amount} = this.form.controls;
+
+    if (amount.value) amount.setValue(parseFloat(amount.value));
+  }
+
+
+  // Alerta de eliminar
+  async confirmDeleteExpense() {
+    this.utilsSvc.presentAlert({
+      //header: 'Confirm!',
+      message: '¿Estas seguro de eliminar este gasto?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.deleteExpense();
+          }
+        }
+      ]
+    });
   }
 
   // Envia formulario
@@ -55,14 +85,6 @@ export class AddUpdateExpenseComponent  implements OnInit {
       else this.addExpense();
     }
   }
-
-  // Convierte string en number
-  setNumberInputs(){
-    let {amount} = this.form.controls;
-
-    //if (amount.value) amount.setValue(parseFloat(amount.value));
-  }
-
 
   // Agrega gasto
   async addExpense(){
@@ -74,15 +96,14 @@ export class AddUpdateExpenseComponent  implements OnInit {
 
       this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
 
-        //this.utilsSvc.saveInLocalStorage('expense', this.form.value)
         this.utilsSvc.dismissModal({ success: true});
         this.form.reset();
-        console.log(res)
+        this.utilsSvc.presentToast("Gasto agregado","success");
 
       }).catch(error => { 
         console.log(error);
         loading.dismiss();
-        this.utilsSvc.presentToast("Error")
+        this.utilsSvc.presentToast("Error","danger");
 
       }).finally(() => {
         loading.dismiss();
@@ -99,19 +120,43 @@ export class AddUpdateExpenseComponent  implements OnInit {
 
       this.firebaseSvc.updateDocument(path, this.form.value).then(async res => {
 
-        //this.utilsSvc.saveInLocalStorage('expense', this.form.value)
         this.utilsSvc.dismissModal({ success: true});
         this.form.reset();
-        console.log(res)
+        this.utilsSvc.presentToast("Gasto actualizado","success");
 
       }).catch(error => { 
         console.log(error);
         loading.dismiss();
-        this.utilsSvc.presentToast("Error")
+        this.utilsSvc.presentToast("Error","danger")
 
       }).finally(() => {
         loading.dismiss();
       })
   }
+
+  
+  // Elimina gasto
+  async deleteExpense(){
+
+    const loading = await this.utilsSvc.loading();
+    await loading.present();
+    
+    let path = `users/${this.user.uid}/expense/${this.expense.id}`;
+
+    this.firebaseSvc.deleteDocument(path).then(async res => {
+
+      this.utilsSvc.dismissModal({ success: true});
+      this.form.reset();
+      this.utilsSvc.presentToast("Gasto eliminado","success");
+
+    }).catch(error => { 
+      console.log(error);
+      loading.dismiss();
+      this.utilsSvc.presentToast("Error","danger")
+
+    }).finally(() => {
+      loading.dismiss();
+    })
+}
 
 }

@@ -47,7 +47,7 @@ export class AuthPage implements OnInit {
 
       }).catch(error => {
         console.log(error);
-        this.utilsSvc.presentToast("Error")
+        this.utilsSvc.presentToast("Datos incorrectos","danger")
       }).finally(() => {
         loading.dismiss();
       })
@@ -68,11 +68,11 @@ export class AuthPage implements OnInit {
         this.utilsSvc.routerLink('/main/home');
         this.form.reset();
 
-        this.utilsSvc.presentToast("Bienvenido")
+        this.utilsSvc.presentToast("Bienvenido","success")
 
       }).catch(error => {
         console.log(error);
-        this.utilsSvc.presentToast("Error")
+        this.utilsSvc.presentToast("Error","danger")
 
       }).finally(() => {
         //loading.dismiss();

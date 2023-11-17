@@ -29,10 +29,10 @@ export class ForgotPasswordPage implements OnInit {
       await loading.present();
 
       this.firebaseSvc.sendRecoveryEmail(this.form.value.email).then(res => {
-        this.utilsSvc.presentToast("Correo enviado")
+        this.utilsSvc.presentToast("Correo enviado","success")
       }).catch(error => { 
         console.log(error);
-        this.utilsSvc.presentToast("Error al enviar")
+        this.utilsSvc.presentToast("Error al enviar","danger")
       }).finally(() => {
         loading.dismiss();
       })

@@ -14,10 +14,24 @@
       </div>
     </ion-list>
 
-    <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-      <ion-item [routerLink]="p.url" routerDirection="root" lines="none">
-        <ion-icon aria-hidden="true" slot="start" [name]="p.icon"></ion-icon>
-        <ion-label class="texto">{{p.title}}</ion-label>
+    <ion-menu-toggle auto-hide="false">
+      <ion-item [routerLink]="['/settings']" lines="none">
+        <ion-icon aria-hidden="true" slot="start" name="settings-outline"></ion-icon>
+        <ion-label class="texto"> Configuración</ion-label>
+     </ion-item>
+    </ion-menu-toggle>
+
+    <ion-menu-toggle auto-hide="false">
+      <ion-item  lines="none">
+        <ion-icon aria-hidden="true" slot="start" name="help-circle-outline"></ion-icon>
+        <ion-label class="texto"> Ayuda</ion-label>
+     </ion-item>
+    </ion-menu-toggle>
+
+    <ion-menu-toggle auto-hide="false">
+      <ion-item  (click)="signOut()" lines="none">
+        <ion-icon aria-hidden="true" slot="start" name="exit-outline" color="danger"></ion-icon>
+        <ion-label class="texto" color="danger">Cerrar sesión</ion-label>
      </ion-item>
     </ion-menu-toggle>
 

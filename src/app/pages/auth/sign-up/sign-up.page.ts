@@ -38,11 +38,11 @@ export class SignUpPage implements OnInit {
         this.form.controls.uid.setValue(uid);
 
         this.setUserInfo(uid);
-        console.log(res)
+        this.utilsSvc.presentToast("Cuenta creada con exito","success")
 
       }).catch(error => { 
         console.log(error);
-        this.utilsSvc.presentToast("Cuenta ya creada o datos incorrectos")
+        this.utilsSvc.presentToast("Cuenta ya creada o datos incorrectos","danger")
 
       }).finally(() => {
         loading.dismiss();
@@ -67,7 +67,7 @@ export class SignUpPage implements OnInit {
 
       }).catch(error => { 
         console.log(error);
-        this.utilsSvc.presentToast("Error")
+        this.utilsSvc.presentToast("Error","danger")
 
       }).finally(() => {
         loading.dismiss();
