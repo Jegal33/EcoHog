@@ -23,12 +23,14 @@ export class HomePage implements OnInit {
   }
 
   // Agregar gastos
-  addUpdateExpense() {
-    this.utilSvc.presentModal({
+  async addUpdateExpense(expense?: Expense) {
+    let success = await this.utilSvc.presentModal({
       component: AddUpdateExpenseComponent,
       cssClass: 'modal-fullscreen',
-      backdropDismiss: false
+      backdropDismiss: false,
+      componentProps: {expense}
     })
+    if (success) this.getExpenses();
   }
 
   // Obtener datos del usuario del almacenamiento local
@@ -36,7 +38,7 @@ export class HomePage implements OnInit {
     return this.utilSvc.getFromLocalStorage('user');
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getExpenses();
   }
 

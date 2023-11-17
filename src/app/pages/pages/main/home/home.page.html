@@ -16,7 +16,7 @@
   <ion-list>
     <ion-title>Gastos</ion-title>
     <ion-item-sliding *ngFor="let e of expenses">
-      <ion-item>
+      <ion-item (click)="addUpdateExpense(e)">
         <ion-label color="danger">- {{e.amount | currency}}</ion-label>
         <p>{{ e.date | date:'dd-MM-yyyy'}}</p>
       </ion-item>
@@ -25,7 +25,6 @@
 
   <!-- Loading -->
   <ion-list *ngIf="loading">
-    <ion-title>Gastos</ion-title>
     <ion-item-sliding *ngFor="let e of [1,1,1,1,1,1]">
       <ion-item>
         <ion-skeleton-text animated style="width: 98%"></ion-skeleton-text>

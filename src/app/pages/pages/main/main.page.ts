@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UtilsService } from 'src/app/services/utils.service';
+import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
   selector: 'app-main',
@@ -14,7 +15,13 @@ export class MainPage implements OnInit {
     { title: 'Ayuda', url: 'home', icon: 'help-circle-outline' }
   ]
 
-  constructor(private utilSvc: UtilsService) { }
+  pokemon = {
+    name: '',
+    spriteUrl: ''
+  };
+
+
+  constructor(private utilSvc: UtilsService, private pokemonService: PokemonService) { }
 
   ngOnInit() {
   }
@@ -25,4 +32,26 @@ export class MainPage implements OnInit {
       return this.utilSvc.getFromLocalStorage('user');
     }
 
+
+  
+  //Metodo para obtener el sprite
+  getPokemonSprite() {
+    this.pokemonService.getRandomPokemon().then(spriteUrl => {
+      this.pokemon = {
+        name: null,
+        spriteUrl: spriteUrl
+      };
+    });
+  }
+
+  //Metodo para actualizar al sprite
+  updatePokemonSprite() {
+    console.log('Actualizando imagen del Pokémon...');
+    this.pokemonService.getRandomPokemon().then(spriteUrl => {
+      this.pokemon = {
+        name: null,
+        spriteUrl: spriteUrl
+      };
+    });
+  }
 }

@@ -3,7 +3,7 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail} from 'firebase/auth';
 import { User } from '../models/user.model';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
-import {getFirestore, setDoc, doc, getDoc, addDoc, collection, collectionData, query} from '@angular/fire/firestore';
+import {getFirestore, setDoc, doc, getDoc, addDoc, collection, collectionData, query, updateDoc, deleteDoc} from '@angular/fire/firestore';
 import { UtilsService } from './utils.service';
 
 @Injectable({
@@ -68,6 +68,16 @@ export class FirebaseService {
     return addDoc(collection(getFirestore(), path), data)
   }
 
+  // Actualizar un documento
+  updateDocument(path: string, data:any){
+    return updateDoc(doc(getFirestore(), path), data);
+  }
+
+  // Eliminar un documento
+  deleteDocument(path: string, data:any){
+    return deleteDoc(doc(getFirestore(), path));
+  }
+  
   // Obtener datos de una colección
   getCollectionData(path: string, collectionQuery?: any){
     const ref = collection(getFirestore(), path);

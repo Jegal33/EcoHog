@@ -1,15 +1,16 @@
-<app-header [isModal]="true" title="Ingrese gastos"></app-header>
+<app-header [isModal]="true" [title]="expense ? 'Modificar gasto': 'Ingrese gasto'"></app-header>
 <ion-content>
   <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
 
-    <app-logo style="margin-bottom: -10%;"></app-logo>
 
     <!-- Input gasto -->
     <app-custom-input   
     icon="cash-outline" 
     type="number" 
     label="Gasto" 
-    [control]="form.controls.amount"></app-custom-input>
+    [control]="form.controls.amount"
+    (ionInput)="setNumberInputs()"
+    ></app-custom-input>
 
 
     <!-- Selección de Categoría -->
@@ -21,16 +22,9 @@
       </ion-select>
     </ion-item>
 
-      <!--
-      <ion-item class="custom-input" lines="none">
-        <ion-icon name="calendar-outline" slot="start"></ion-icon>
-        <ion-label>{{defaultDate}}</ion-label>
-      </ion-item>
-      -->
-
 
     <!-- Input Fecha y validacion -->
-    <ion-item>    
+    <ion-item lines="none">    
       <ion-label>Fecha</ion-label>
       <ion-datetime 
         presentation="date"
@@ -46,7 +40,7 @@
 
     <!-- Boton Crear cuenta -->
     <ion-button  expand="block"  mode="ios" class="submit" type="submit" [disabled]="form.invalid">
-      Agregar
+      {{expense ? 'Modificar gasto': 'Ingrese gasto'}}
     </ion-button>
 
   </form>
