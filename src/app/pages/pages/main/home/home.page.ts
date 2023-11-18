@@ -5,6 +5,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateExpenseComponent } from 'src/app/shared/components/add-update-expense/add-update-expense.component';
 import { orderBy } from 'firebase/firestore';
+import { Category } from 'src/app/models/categories.model';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class HomePage implements OnInit {
   constructor(private firebaseSvc : FirebaseService, private utilSvc : UtilsService) { }
 
   expenses: Expense[] = [];
+  categories: Category[] = [];
   loading: boolean = false;
 
   ngOnInit() {
@@ -26,6 +28,7 @@ export class HomePage implements OnInit {
   doRefresh(event) { 
     setTimeout(() => {
       this.getExpenses();
+      this.getCategories();
       event.target.complete();
     }, 1000);
   }
@@ -49,6 +52,7 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
     this.getExpenses();
+    this.getCategories();
   }
 
   // Obtener gastos
@@ -73,10 +77,34 @@ export class HomePage implements OnInit {
     })
   }
 
+  
+  // Obtener categorias
+  getCategories(){
+    let path = `users/${this.user().uid}/category`;
+
+    this.loading = true;
+
+    let query = (
+      orderBy('name', 'desc')
+    )
+
+    let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
+      next: (res: any) =>{
+        console.log(res);
+        this.categories = res;
+
+        this.loading = false;
+
+        sub.unsubscribe();
+      }
+    })
+  }
+
   // Sumar gastos
   totalExpenses(){
     return this.expenses.reduce((indide, expense) => indide + expense.amount, 0);
   }
+
 
 
 }

@@ -24,6 +24,16 @@ const routes: Routes = [
     loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule),
     canActivate:[AuthGuard]
   },
+  {
+    path: 'licenses',
+    loadChildren: () => import('./pages/licenses/licenses.module').then( m => m.LicensesPageModule),
+    canActivate:[AuthGuard]
+  },  {
+    path: 'data-controls',
+    loadChildren: () => import('./pages/data-controls/data-controls.module').then( m => m.DataControlsPageModule)
+  },
+
+
 
 ];
 

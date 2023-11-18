@@ -26,3 +26,10 @@ p {
 ion-content {
     --padding-bottom: 100px;
 }
+
+ion-fab-button {
+    --background: #53bc9c ;
+    --background-hover: #9ce0be;
+    --background-activated: #88f4be;
+    --background-focused: #88f4be;
+  }

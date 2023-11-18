@@ -77,11 +77,12 @@ export class FirebaseService {
   deleteDocument(path: string,){
     return deleteDoc(doc(getFirestore(), path));
   }
+
   
   // Obtener datos de una colección
   getCollectionData(path: string, collectionQuery?: any){
     const ref = collection(getFirestore(), path);
-    return collectionData(query(ref, collectionQuery), {idField : 'id'})
+    return collectionData(query(ref, collectionQuery))
   }
 
 }
