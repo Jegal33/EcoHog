@@ -24,6 +24,47 @@ export class DataControlsPage implements OnInit {
       this.user = this.utilsSvc.getFromLocalStorage('user');
   
     }
+
+  // Alerta de eliminar
+  async confirmDeleteExpense() {
+    this.utilsSvc.presentAlert({
+      //header: 'Confirm!',
+      message: '¿Estas seguro de eliminar los datos de gastos?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.deteleteCollection();
+          }
+        }
+      ]
+    });
+  }
+
+    // Alerta de eliminar
+    async confirmDeleteAccount() {
+      this.utilsSvc.presentAlert({
+        //header: 'Confirm!',
+        message: '¿Estas seguro de que desea eliminar su cuenta?',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+          }, {
+            text: 'Si',
+            handler: () => {
+              this.deleteUser();
+            }
+          }
+        ]
+      });
+    }
+
   deleteUser(){}
 
 
@@ -38,6 +79,7 @@ export class DataControlsPage implements OnInit {
       map(snapshot => {
         snapshot.forEach(doc => {
           doc.ref.delete();
+          this.utilsSvc.routerLink("/settings");
           this.utilsSvc.presentToast("Datos eliminados correctamente", "success");
         });
         return true; // Puedes ajustar esto según tus necesidades       

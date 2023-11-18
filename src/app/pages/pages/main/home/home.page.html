@@ -41,32 +41,34 @@
     </ion-item-sliding>
   </ion-list>
 
-  <!-- Loading -->
-  <ion-list *ngIf="loading">
-    <ion-item-sliding *ngFor="let e of [1,1,1,1,1,1]">
-      <ion-item>
-        <ion-skeleton-text animated style="width: 98%"></ion-skeleton-text>
-      </ion-item>
-    </ion-item-sliding>
-  </ion-list>
+    <!-- Loading -->
+    <ion-list *ngIf="loading">
+      <ion-item-sliding *ngFor="let e of [1,1,1,1,1,1]">
+        <ion-item>
+          <ion-skeleton-text animated style="width: 98%"></ion-skeleton-text>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
 
     <!-- Sin gastos -->
-  <div *ngIf="!loading && !expenses.length" class="empty">
-    <ion-icon name="cash"></ion-icon>
-    <h3>Sin gastos</h3>
-  </div>
+    <div *ngIf="!loading && !expenses.length" class="empty">
+      <ion-icon name="cash"></ion-icon>
+      <h3>Sin gastos</h3>
+    </div>
+
+    <!-- Muestra las cetegorias-->
+    <ion-list>
+      <ion-title>Categorias</ion-title>
+      <ion-item-sliding *ngFor="let c of categories">
+        <ion-item >
+          <ion-label> {{c.name}}</ion-label>
+          <ion-icon slot="start" name="{{c.icon}}"></ion-icon>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
 
 
 
-  <ion-list>
-    <ion-title>Categorias</ion-title>
-    <ion-item-sliding *ngFor="let c of categories">
-      <ion-item >
-        <ion-label> {{c.name}}</ion-label>
-        <ion-icon slot="start" name="{{c.icon}}"></ion-icon>
-      </ion-item>
-    </ion-item-sliding>
-  </ion-list>
 
 
 </ion-content>

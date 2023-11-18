@@ -17,8 +17,7 @@
     <ion-item class="custom-input" lines="none">
       <ion-icon name="calendar-outline" slot="start"></ion-icon>
       <ion-select  interface="popover" placeholder="Selecciona la categoría" style="color: black;" formControlName="category">
-        <ion-select-option value="client" color="dark">Cliente</ion-select-option>
-        <ion-select-option value="admin" >Admin</ion-select-option>
+        <ion-select-option *ngFor="let c of categories" [value]="c.name" color="dark">{{c.name}}</ion-select-option>
       </ion-select>
     </ion-item>
 

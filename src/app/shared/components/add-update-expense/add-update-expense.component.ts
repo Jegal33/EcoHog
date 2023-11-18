@@ -4,7 +4,8 @@ import { Expense } from 'src/app/models/expenses.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
-
+import { orderBy } from 'firebase/firestore';
+import { Category } from 'src/app/models/categories.model';
 
 @Component({
   selector: 'app-add-update-expense',
@@ -14,7 +15,6 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class AddUpdateExpenseComponent  implements OnInit {
 
   @Input() expense: Expense;
-
   // Obtiene la fecha actual
   currentDate = new Date();
 
@@ -42,10 +42,14 @@ export class AddUpdateExpenseComponent  implements OnInit {
 
   // Obtiene usuario
   user = {} as User;
-   
+
+
+  categories: Category[] = [];
+
+
   ngOnInit() {
     this.user = this.utilsSvc.getFromLocalStorage('user');
-
+    this.getCategories();
     if (this.expense) this.form.setValue(this.expense);
   }
 
@@ -123,7 +127,6 @@ export class AddUpdateExpenseComponent  implements OnInit {
         this.utilsSvc.dismissModal({ success: true});
         this.form.reset();
         this.utilsSvc.presentToast("Gasto actualizado","success");
-
       }).catch(error => { 
         console.log(error);
         loading.dismiss();
@@ -158,5 +161,25 @@ export class AddUpdateExpenseComponent  implements OnInit {
       loading.dismiss();
     })
 }
+
+
+
+  // Obtener categorias
+  getCategories(){
+    let path = `category`;
+
+    let query = (
+      orderBy('name', 'desc')
+    )
+
+    let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
+      next: (res: any) =>{
+        console.log(res);
+        this.categories = res;
+
+        sub.unsubscribe();
+      }
+    })
+  }
 
 }

@@ -80,7 +80,7 @@ export class HomePage implements OnInit {
   
   // Obtener categorias
   getCategories(){
-    let path = `users/${this.user().uid}/category`;
+    let path = `category`;
 
     this.loading = true;
 
@@ -88,7 +88,7 @@ export class HomePage implements OnInit {
       orderBy('name', 'desc')
     )
 
-    let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
+    let sub = this.firebaseSvc.getCollectionData(path).subscribe({
       next: (res: any) =>{
         console.log(res);
         this.categories = res;
