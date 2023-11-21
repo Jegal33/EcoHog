@@ -34,7 +34,7 @@
     </div>
 
     <div *ngIf="expenses.length" class="d-flex-center ion-text-center">
-      <h5>{{totalExpenses()  | number:'1.0-0'}}</h5>
+      <h5>$ {{totalExpenses()  | number:'1.0-0'}}</h5>
     </div>
   </ion-card>
 
@@ -75,7 +75,7 @@
 
     <!-- Muestra las categorias-->
     <ion-list>
-      <ion-title>Categorias</ion-title>
+      <ion-title>Categorías</ion-title>
       <ion-item-sliding *ngFor="let c of categories">
         <ion-item (click)="categoryList(c)">
           <ion-label> {{c.name}}</ion-label>

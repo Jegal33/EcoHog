@@ -1,9 +1,6 @@
 <app-header [isModal]="true" title=" Categoria de {{category.name}}"></app-header>
 <ion-content>
 
-
-
-
   <!-- Lista de gastos -->
   <ion-list>
     <div>
@@ -12,7 +9,7 @@
           <ion-title>Gastos</ion-title>
         </ion-col>
         <ion-col size="6" text-end>
-          <ion-title>Total: {{totalExpenses() | number:'1.0-0'}}</ion-title>
+          <ion-title>Total: $ {{totalExpenses() | number:'1.0-0'}}</ion-title>
         </ion-col>
       </ion-row>
     </div>
@@ -24,5 +21,21 @@
       </ion-item>
     </ion-item-sliding>
   </ion-list>
+
+
+  <!-- Loading -->
+  <ion-list *ngIf="loading">
+    <ion-item-sliding *ngFor="let e of [1,1,1,1,1,1]">
+      <ion-item>
+        <ion-skeleton-text animated style="width: 98%"></ion-skeleton-text>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- Sin gastos -->
+  <div *ngIf="!loading && !expenses.length" class="empty">
+    <ion-icon name="cash"></ion-icon>
+    <h3>Sin gastos en esta categoría</h3>
+  </div>
 
 </ion-content>
