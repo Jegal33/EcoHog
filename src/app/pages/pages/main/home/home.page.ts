@@ -5,6 +5,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateExpenseComponent } from 'src/app/shared/components/add-update-expense/add-update-expense.component';
 import { AddUpdateIncomeComponent } from 'src/app/shared/components/add-update-income/add-update-income.component';
+import { CategoriesListComponent } from 'src/app/shared/components/categories-list/categories-list.component';
 import { orderBy } from 'firebase/firestore';
 import { Category } from 'src/app/models/categories.model';
 import { Income } from 'src/app/models/income.model';
@@ -60,6 +61,17 @@ export class HomePage implements OnInit {
       })
       if (success) this.getIncome();
     }
+
+  // Gastos por categoria
+  async categoryList(category: Category) {
+    let success = await this.utilSvc.presentModal({
+      component: CategoriesListComponent,
+      cssClass: 'modal-fullscreen',
+      backdropDismiss: false,
+      componentProps: {category}
+    })
+    //if (success) this.getIncome();
+  }
 
   // Obtener datos del usuario del almacenamiento local
   user(): User{

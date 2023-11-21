@@ -36,7 +36,8 @@ export class DataControlsPage implements OnInit {
         }, {
           text: 'Si',
           handler: () => {
-            this.deteleteCollection();
+            this.deleteIncome();
+            this.deleteExpense();
           }
         }
       ]
@@ -63,6 +64,7 @@ export class DataControlsPage implements OnInit {
             {
               text: 'Sí',
               handler: (data) => {
+
                 // El objeto 'data' contendrá el valor del campo de entrada de contraseña
                 const password = data.password;
                 this.deleteUser(password);
@@ -72,6 +74,7 @@ export class DataControlsPage implements OnInit {
         });
       }
 
+    // Elimina usuario
     async deleteUser(password: string) {
       const loading = await this.utilsSvc.loading();
       await loading.present();
@@ -95,7 +98,7 @@ export class DataControlsPage implements OnInit {
 
 
   // Eliminar todos los datos
-  async deteleteCollection() {
+  async deleteExpense() {
     const loading = await this.utilsSvc.loading();
     await loading.present();
   
@@ -120,5 +123,31 @@ export class DataControlsPage implements OnInit {
       })
     ).subscribe();
   }
+
+    // Eliminar todos los datos
+    async deleteIncome() {
+      const loading = await this.utilsSvc.loading();
+      await loading.present();
+    
+      let path = `users/${this.user.uid}/income`;
+    
+      this.angularFire.collection(path).get().pipe(
+        map(snapshot => {
+          snapshot.forEach(doc => {
+            doc.ref.delete();
+            this.utilsSvc.routerLink("/settings");
+          });
+          return true; // Puedes ajustar esto según tus necesidades       
+        }),
+        catchError(error => {
+          loading.dismiss();
+          this.utilsSvc.presentToast("Error", "danger");
+          throw error; // Propaga el error para que el bloque finally también se ejecute
+        }),
+        finalize(() => {
+          loading.dismiss();
+        })
+      ).subscribe();
+    }
   
 }

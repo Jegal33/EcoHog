@@ -1,0 +1,28 @@
+<app-header [isModal]="true" title=" Categoria de {{category.name}}"></app-header>
+<ion-content>
+
+
+
+
+  <!-- Lista de gastos -->
+  <ion-list>
+    <div>
+      <ion-row justify-content-between>
+        <ion-col size="6" text-start>
+          <ion-title>Gastos</ion-title>
+        </ion-col>
+        <ion-col size="6" text-end>
+          <ion-title>Total: {{totalExpenses() | number:'1.0-0'}}</ion-title>
+        </ion-col>
+      </ion-row>
+    </div>
+    
+    <ion-item-sliding *ngFor="let e of expenses">
+      <ion-item >
+        <ion-label color="danger">- {{e.amount | number:'1.0-0'}}</ion-label>
+        <p>{{ e.date | date:'dd-MM-yyyy'}}</p>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

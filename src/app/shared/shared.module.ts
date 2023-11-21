@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddUpdateExpenseComponent } from './components/add-update-expense/add-update-expense.component';
 import { AddUpdateIncomeComponent } from './components/add-update-income/add-update-income.component';
+import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 
 
 
@@ -18,6 +19,7 @@ import { AddUpdateIncomeComponent } from './components/add-update-income/add-upd
     LogoComponent,
     AddUpdateExpenseComponent,
     AddUpdateIncomeComponent,
+    CategoriesListComponent
 
   ],
   exports:[
@@ -27,6 +29,8 @@ import { AddUpdateIncomeComponent } from './components/add-update-income/add-upd
     ReactiveFormsModule,
     AddUpdateExpenseComponent,
     AddUpdateIncomeComponent,
+    CategoriesListComponent
+    
   ],
   imports: [
     CommonModule,

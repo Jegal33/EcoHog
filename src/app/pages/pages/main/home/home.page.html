@@ -10,10 +10,18 @@
   </ion-refresher>
 
   <!-- Botón para agregar gastos -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addUpdateExpense()">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="addUpdateExpense()">
+        <ion-icon name="trending-down-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="addUpdateIncome()">
+        <ion-icon name="trending-up-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
 
   <!-- Carta que muestra gasto-->
@@ -26,17 +34,26 @@
     </div>
 
     <div *ngIf="expenses.length" class="d-flex-center ion-text-center">
-      <h5>{{totalExpenses()  | currency}}</h5>
+      <h5>{{totalExpenses()  | number:'1.0-0'}}</h5>
     </div>
   </ion-card>
 
-  <!-- Lista de gastos -->
   <ion-list>
+    <!-- Lista de gastos -->
     <ion-title>Gastos</ion-title>
     <ion-item-sliding *ngFor="let e of expenses">
-      <ion-item (click)="addUpdateExpense(e)">
-        <ion-label color="danger">- {{e.amount | number:'1.0-0'}}</ion-label>
+      <ion-item (click)="addUpdateExpense(e)" >
+        <ion-label color="danger"> {{e.amount | number:'1.0-0'}}</ion-label>
         <p>{{ e.date | date:'dd-MM-yyyy'}}</p>
+      </ion-item>
+    </ion-item-sliding>
+  
+    <!-- Lista de ingresos -->
+    <ion-title>Ingresos</ion-title>
+    <ion-item-sliding *ngFor="let i of incomes">
+      <ion-item (click)="addUpdateIncome(i)" >
+        <ion-label color="success"> {{i.amount | number:'1.0-0'}}</ion-label>
+        <p>{{ i.date | date:'dd-MM-yyyy'}}</p>
       </ion-item>
     </ion-item-sliding>
   </ion-list>
@@ -56,21 +73,17 @@
       <h3>Sin gastos</h3>
     </div>
 
-    <!-- Muestra las cetegorias-->
+    <!-- Muestra las categorias-->
     <ion-list>
       <ion-title>Categorias</ion-title>
       <ion-item-sliding *ngFor="let c of categories">
-        <ion-item >
+        <ion-item (click)="categoryList(c)">
           <ion-label> {{c.name}}</ion-label>
           <ion-icon slot="start" name="{{c.icon}}"></ion-icon>
         </ion-item>
       </ion-item-sliding>
     </ion-list>
 
-
-<ion-button (click)="addUpdateIncome()" expand="block" fill="clear" shape="round">
-  Click me
-</ion-button>
 
 
 </ion-content>

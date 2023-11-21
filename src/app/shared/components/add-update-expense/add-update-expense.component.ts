@@ -27,7 +27,7 @@ export class AddUpdateExpenseComponent  implements OnInit {
 
   
   // Define límites (minDate y maxDate) si es necesario
-  minDate = '2000-01-01';
+  minDate = '2023-01-01';
   maxDate = '2050-12-31';
 
   // Obtiene la fecha actual para establecerla como valor predeterminado
