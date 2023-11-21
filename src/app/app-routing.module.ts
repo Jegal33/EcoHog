@@ -31,7 +31,8 @@ const routes: Routes = [
   },
   {
     path: 'data-controls',
-    loadChildren: () => import('./pages/data-controls/data-controls.module').then( m => m.DataControlsPageModule)
+    loadChildren: () => import('./pages/data-controls/data-controls.module').then( m => m.DataControlsPageModule),
+    canActivate:[AuthGuard]
   },
 
 
