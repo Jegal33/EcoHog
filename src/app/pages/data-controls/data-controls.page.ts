@@ -25,7 +25,7 @@ export class DataControlsPage implements OnInit {
   
     }
 
-  // Alerta de eliminar
+  // Alerta de eliminar Gastos
   async confirmDeleteExpense() {
     this.utilsSvc.presentAlert({
       //header: 'Confirm!',
@@ -45,7 +45,7 @@ export class DataControlsPage implements OnInit {
     });
   }
 
-    // Alerta de eliminar
+    // Alerta de eliminar Cuenta
     async confirmDeleteAccount() {
       this.utilsSvc.presentAlert({
         //header: 'Confirm!',
