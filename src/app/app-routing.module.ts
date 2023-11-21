@@ -28,7 +28,8 @@ const routes: Routes = [
     path: 'licenses',
     loadChildren: () => import('./pages/licenses/licenses.module').then( m => m.LicensesPageModule),
     canActivate:[AuthGuard]
-  },  {
+  },
+  {
     path: 'data-controls',
     loadChildren: () => import('./pages/data-controls/data-controls.module').then( m => m.DataControlsPageModule)
   },

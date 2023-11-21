@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Expense } from 'src/app/models/expenses.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
-import { collection } from '@angular/fire/firestore';
 import {AngularFirestore} from '@angular/fire/compat/firestore'
-import { catchError, finalize, map } from 'rxjs';
+import { catchError, finalize, map, take } from 'rxjs';
 
 @Component({
   selector: 'app-data-controls',
@@ -47,28 +45,56 @@ export class DataControlsPage implements OnInit {
 
     // Alerta de eliminar Cuenta
     async confirmDeleteAccount() {
-      this.utilsSvc.presentAlert({
-        //header: 'Confirm!',
-        message: '¿Estas seguro de que desea eliminar su cuenta?',
-        buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-            cssClass: 'secondary',
-          }, {
-            text: 'Si',
-            handler: () => {
-              this.deleteUser();
-            }
-          }
-        ]
-      });
+        this.utilsSvc.presentAlert({
+          message: '¿Estás seguro de que deseas eliminar tu cuenta?',
+          inputs: [
+            {
+              name: 'password',
+              type: 'password',
+              placeholder: 'Contraseña',
+            },
+          ],
+          buttons: [
+            {
+              text: 'Cancelar',
+              role: 'cancel',
+              cssClass: 'secondary',
+            },
+            {
+              text: 'Sí',
+              handler: (data) => {
+                // El objeto 'data' contendrá el valor del campo de entrada de contraseña
+                const password = data.password;
+                this.deleteUser(password);
+              },
+            },
+          ],
+        });
+      }
+
+    async deleteUser(password: string) {
+      const loading = await this.utilsSvc.loading();
+      await loading.present();
+      try {
+        // Aquí obtén el UID, correo electrónico y contraseña del usuario que deseas eliminar
+        const uid = this.user.uid;
+        const email = this.user.email;
+  
+        await this.firebaseSvc.deleteUser(uid, email, password);
+        loading.dismiss();
+        this.utilsSvc.presentToast("Datos eliminados correctamente", "success");
+      } catch (error) {
+        this.utilsSvc.presentToast("Datos incorrectos", "danger");
+        loading.dismiss();
+      }
+      loading.dismiss();
+      
     }
 
-  deleteUser(){}
+    
 
 
-  // Eliminar todos los gastos
+  // Eliminar todos los datos
   async deteleteCollection() {
     const loading = await this.utilsSvc.loading();
     await loading.present();

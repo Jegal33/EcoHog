@@ -6,7 +6,7 @@ import { LogoComponent } from './components/logo/logo.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddUpdateExpenseComponent } from './components/add-update-expense/add-update-expense.component';
-
+import { AddUpdateIncomeComponent } from './components/add-update-income/add-update-income.component';
 
 
 
@@ -17,7 +17,7 @@ import { AddUpdateExpenseComponent } from './components/add-update-expense/add-u
     CustomInputComponent,
     LogoComponent,
     AddUpdateExpenseComponent,
-
+    AddUpdateIncomeComponent,
 
   ],
   exports:[
@@ -26,7 +26,7 @@ import { AddUpdateExpenseComponent } from './components/add-update-expense/add-u
     LogoComponent,
     ReactiveFormsModule,
     AddUpdateExpenseComponent,
-
+    AddUpdateIncomeComponent,
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
-import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail} from 'firebase/auth';
+import {EmailAuthProvider, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail} from 'firebase/auth';
 import { User } from '../models/user.model';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
 import {getFirestore, setDoc, doc, getDoc, addDoc, collection, collectionData, query, updateDoc, deleteDoc} from '@angular/fire/firestore';
@@ -11,8 +11,8 @@ import { UtilsService } from './utils.service';
 })
 export class FirebaseService {
 
-  auth = inject (AngularFireAuth)
-  firesore = inject(AngularFirestore)
+  firebaseAuth = inject (AngularFireAuth)
+  firestore = inject(AngularFirestore)
   utilsSvc = inject(UtilsService)
 
 
@@ -51,6 +51,25 @@ export class FirebaseService {
     this.utilsSvc.routerLink('/auth');
   }
 
+  
+  async deleteUser(uid: string, email: string, password: string): Promise<void> {
+    try {
+      // Reautenticar al usuario para realizar operaciones sensibles
+      const user = await this.firebaseAuth.currentUser;
+      if (user) {
+        // Utiliza 'EmailAuthProvider.credential' con los datos proporcionados
+        const credential = EmailAuthProvider.credential(user.email, password);
+        await user.reauthenticateWithCredential(credential);
+        // Eliminar el usuario de Authentication
+        await user.delete();
+      }
+      // Eliminar el usuario de Firestore
+      await this.firestore.collection('users').doc(uid).delete();
+    } catch (error) {
+      throw error;
+    }
+    this.signOut();
+  }
     // ============= Base de datos ======================
 
   // Setear un documento

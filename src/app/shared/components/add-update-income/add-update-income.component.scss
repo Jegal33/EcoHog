@@ -1,0 +1,18 @@
+ion-datetime {
+    --background: #fff1f2;
+    --background-rgb: 255, 241, 242;
+  
+    border-radius: 16px;
+    box-shadow: rgba(var(--ion-color-rose-rgb), 0.3) 0px 10px 15px -3px;
+  }
+
+.delete-button {
+  margin-top: 0px;
+}
+
+.add-button {
+  --background: #53bc9c ;
+  --background-hover: #9ce0be;
+  --background-activated: #88f4be;
+  --background-focused: #88f4be;
+}

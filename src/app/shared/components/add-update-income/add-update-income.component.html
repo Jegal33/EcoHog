@@ -1,0 +1,46 @@
+<app-header [isModal]="true" [title]="income ? 'Modificar Ingreso': 'Ingrese Ingreso'"></app-header>
+<ion-content>
+  <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+
+    <!-- Input gasto -->
+    <app-custom-input   
+    icon="cash-outline" 
+    type="number" 
+    label="Ingreso" 
+    [control]="form.controls.amount"
+    (ionInput)="setNumberInputs()"
+    ></app-custom-input>
+
+
+    <!-- Input Fecha y validacion -->
+    <ion-item lines="none">    
+      <ion-datetime 
+        presentation="date"
+        placeholder="Selecciona una fecha" 
+        [min]="minDate" 
+        [max]="maxDate" 
+        [value]="form.controls.date.value || defaultDate" 
+        type="text"
+        formControlName="date"
+        >
+      </ion-datetime>
+    </ion-item>
+
+    <!-- Boton Crear Ingreso -->
+    <ion-button  expand="block"  mode="ios" class="submit add-button" type="submit" [disabled]="form.invalid">
+      {{income ? 'Modificar Ingreso': 'Ingrese Ingreso'}}
+    </ion-button>
+
+    <!-- Boton eliminar Ingreso -->
+    <ion-button (click)="confirmDeleteExpense()" *ngIf="income" expand="block"  mode="ios"  color="danger" [disabled]="form.invalid">
+      Eliminar
+    </ion-button>
+
+  </form>
+
+
+
+
+  
+</ion-content>

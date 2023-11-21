@@ -4,8 +4,10 @@ import { Expense } from 'src/app/models/expenses.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateExpenseComponent } from 'src/app/shared/components/add-update-expense/add-update-expense.component';
+import { AddUpdateIncomeComponent } from 'src/app/shared/components/add-update-income/add-update-income.component';
 import { orderBy } from 'firebase/firestore';
 import { Category } from 'src/app/models/categories.model';
+import { Income } from 'src/app/models/income.model';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class HomePage implements OnInit {
   constructor(private firebaseSvc : FirebaseService, private utilSvc : UtilsService) { }
 
   expenses: Expense[] = [];
+  incomes: Income [] = [];
   categories: Category[] = [];
   loading: boolean = false;
 
@@ -29,6 +32,7 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       this.getExpenses();
       this.getCategories();
+      this.getIncome();
       event.target.complete();
     }, 1000);
   }
@@ -45,6 +49,18 @@ export class HomePage implements OnInit {
     if (success) this.getExpenses();
   }
 
+
+    // Agregar Ingresos
+    async addUpdateIncome(income?: Income) {
+      let success = await this.utilSvc.presentModal({
+        component: AddUpdateIncomeComponent,
+        cssClass: 'modal-fullscreen',
+        backdropDismiss: false,
+        componentProps: {income}
+      })
+      if (success) this.getIncome();
+    }
+
   // Obtener datos del usuario del almacenamiento local
   user(): User{
     return this.utilSvc.getFromLocalStorage('user');
@@ -53,6 +69,7 @@ export class HomePage implements OnInit {
   ionViewWillEnter() {
     this.getExpenses();
     this.getCategories();
+    this.getIncome();
   }
 
   // Obtener gastos
@@ -76,6 +93,28 @@ export class HomePage implements OnInit {
       }
     })
   }
+
+    // Obtener Ingresos
+    getIncome(){
+      let path = `users/${this.user().uid}/income`;
+  
+      this.loading = true;
+  
+      let query = (
+        orderBy('date', 'desc')
+      )
+  
+      let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
+        next: (res: any) =>{
+          console.log(res);
+          this.incomes = res;
+  
+          this.loading = false;
+  
+          sub.unsubscribe();
+        }
+      })
+    }
 
   
   // Obtener categorias

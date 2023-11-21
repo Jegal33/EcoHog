@@ -38,10 +38,12 @@ export class SignUpPage implements OnInit {
         this.form.controls.uid.setValue(uid);
 
         this.setUserInfo(uid);
+        loading.dismiss();
         this.utilsSvc.presentToast("Cuenta creada con exito","success")
 
       }).catch(error => { 
         console.log(error);
+        loading.dismiss();
         this.utilsSvc.presentToast("Cuenta ya creada o datos incorrectos","danger")
 
       }).finally(() => {

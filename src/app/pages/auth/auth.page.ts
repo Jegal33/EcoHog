@@ -47,6 +47,7 @@ export class AuthPage implements OnInit {
 
       }).catch(error => {
         console.log(error);
+        loading.dismiss();
         this.utilsSvc.presentToast("Datos incorrectos","danger")
       }).finally(() => {
         loading.dismiss();
