@@ -43,13 +43,7 @@
       <ion-button routerLink="sign-up" class="ion-margin-top" expand="block"  mode="ios" fill="outline">
         Registrarse
       </ion-button>
-
-      <!--Código del Pokémon aleatorio aquí -->
-
-      <div *ngIf="pokemon" (click)="updatePokemonSprite()">
-        <img [src]="pokemon.spriteUrl" alt="Imagen del Pokémon" class="menu-image">
-        <!--<p>Este Pokemon se llama:{{ pokemonName }}</p>-->
-      </div>
+    
 
     </form>
   </div>
