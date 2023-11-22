@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { PokemonService } from '../../services/pokemon.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -13,13 +12,9 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class AuthPage implements OnInit {
 
   constructor(
-    private pokemonService: PokemonService
   ) {}
 
-  pokemon = {
-    name: '',
-    spriteUrl: ''
-  };
+
 
 
   form = new FormGroup({
@@ -31,7 +26,7 @@ export class AuthPage implements OnInit {
   utilsSvc = inject(UtilsService)
 
   ngOnInit() {
-    this.getPokemonSprite();
+
   }
 
   // Inicia sesión
@@ -81,24 +76,5 @@ export class AuthPage implements OnInit {
     }
   }
 
-  //Metodo para obtener el sprite
-  getPokemonSprite() {
-    this.pokemonService.getRandomPokemon().then(spriteUrl => {
-      this.pokemon = {
-        name: null,
-        spriteUrl: spriteUrl
-      };
-    });
-  }
 
-  //Metodo para actualizar al sprite
-  updatePokemonSprite() {
-    console.log('Actualizando imagen del Pokémon...');
-    this.pokemonService.getRandomPokemon().then(spriteUrl => {
-      this.pokemon = {
-        name: null,
-        spriteUrl: spriteUrl
-      };
-    });
-  }
 }
