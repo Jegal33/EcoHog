@@ -25,18 +25,24 @@
   </ion-fab>
 
   <!-- Carta que muestra gasto-->
-  <ion-card mode="ios" >
-    <ion-card-header>
-      <ion-card-title>Balance</ion-card-title>
-    </ion-card-header>
-    <div *ngIf="!expenses.length" class="d-flex-center ion-text-center">
-      <h5>$ 0</h5>
+<ion-card mode="ios">
+  <ion-card-header>
+    <ion-card-title>Balance: $ {{balance()}}</ion-card-title>
+  </ion-card-header>
+  <div *ngIf="expenses.length" class="ion-text-center">
+    <div class="row">
+      <div class="col text-center">
+        <h5 style="margin-bottom: 0;">$ {{totalExpenses() | number:'1.0-0'}}</h5>
+        <p style="margin-top: 0;">Gastos</p>
+      </div>
+      <div class="col text-center" >
+        <h5 style="margin-bottom: 0;">$ {{totalIncome() | number:'1.0-0'}}</h5>
+        <p style="margin-top: 0;">Ingresos</p>
+      </div>
     </div>
+  </div>
+</ion-card>
 
-    <div *ngIf="expenses.length" class="d-flex-center ion-text-center">
-      <h5>$ {{totalExpenses()  | number:'1.0-0'}}</h5>
-    </div>
-  </ion-card>
 
   <ion-list>
     <!-- Lista de gastos -->

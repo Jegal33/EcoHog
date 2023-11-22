@@ -158,7 +158,12 @@ export class HomePage implements OnInit {
 
   // Sumar Ingresos
   totalIncome(){
-    return this.expenses.reduce((indide, income) => indide + income.amount, 0);
+    return this.incomes.reduce((indide, income) => indide + income.amount, 0);
+  }
+
+  // Balance
+  balance(){
+    return this.totalIncome() - this.totalExpenses();
   }
 
 }
