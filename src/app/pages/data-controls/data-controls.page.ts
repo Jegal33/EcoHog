@@ -108,7 +108,6 @@ export class DataControlsPage implements OnInit {
       map(snapshot => {
         snapshot.forEach(doc => {
           doc.ref.delete();
-          this.utilsSvc.routerLink("/settings");
           this.utilsSvc.presentToast("Datos eliminados correctamente", "success");
         });
         return true; // Puedes ajustar esto según tus necesidades       
@@ -135,7 +134,7 @@ export class DataControlsPage implements OnInit {
         map(snapshot => {
           snapshot.forEach(doc => {
             doc.ref.delete();
-            this.utilsSvc.routerLink("/settings");
+            this.utilsSvc.presentToast("Datos eliminados correctamente", "success");
           });
           return true; // Puedes ajustar esto según tus necesidades       
         }),

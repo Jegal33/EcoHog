@@ -1,5 +1,5 @@
 ion-datetime {
-    --background: #fff1f2;
+    --background: #9ce0be; //#fff1f2
     --background-rgb: 255, 241, 242;
   
     border-radius: 16px;
@@ -11,8 +11,9 @@ ion-datetime {
 }
 
 .add-button {
-  --background: #53bc9c ;
+  --background: #53bc9c;
   --background-hover: #9ce0be;
   --background-activated: #88f4be;
   --background-focused: #88f4be;
 }
+

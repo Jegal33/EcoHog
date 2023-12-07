@@ -24,38 +24,42 @@
     </ion-fab-list>
   </ion-fab>
 
-  <!-- Carta que muestra gasto-->
-<ion-card mode="ios">
-  <ion-card-header>
-    <ion-card-title>Balance: $ {{balance()}}</ion-card-title>
-  </ion-card-header>
-  <div *ngIf="expenses.length" class="ion-text-center">
-    <div class="row">
-      <div class="col text-center">
-        <h5 style="margin-bottom: 0;">$ {{totalExpenses() | number:'1.0-0'}}</h5>
-        <p style="margin-top: 0;">Gastos</p>
-      </div>
-      <div class="col text-center" >
-        <h5 style="margin-bottom: 0;">$ {{totalIncome() | number:'1.0-0'}}</h5>
-        <p style="margin-top: 0;">Ingresos</p>
+  <!-- Carta que muestra gasto e ingresos-->
+  <ion-card mode="ios">
+    <ion-card-header>
+      <ion-card-title>Balance: $ {{balance()}}</ion-card-title>
+    </ion-card-header>
+    <div *ngIf="expenses.length" class="ion-text-center">
+      <div class="row">
+        <div class="col text-center">
+          <h5 style="margin-bottom: 0;">$ {{totalExpenses() | number:'1.0-0'}}</h5>
+          <p style="margin-top: 0;">Gastos</p>
+        </div>
+        <div class="col text-center" >
+          <h5 style="margin-bottom: 0;">$ {{totalIncome() | number:'1.0-0'}}</h5>
+          <p style="margin-top: 0;">Ingresos</p>
+        </div>
       </div>
     </div>
-  </div>
-</ion-card>
+  </ion-card>
+
+
 
 
   <ion-list>
+
+    
     <!-- Lista de gastos -->
-    <ion-title>Gastos</ion-title>
+    <ion-title *ngFor="let e of expenses">Gastos</ion-title>
     <ion-item-sliding *ngFor="let e of expenses">
       <ion-item (click)="addUpdateExpense(e)" >
         <ion-label color="danger"> {{e.amount | number:'1.0-0'}}</ion-label>
         <p>{{ e.date | date:'dd-MM-yyyy'}}</p>
       </ion-item>
     </ion-item-sliding>
-  
+
     <!-- Lista de ingresos -->
-    <ion-title>Ingresos</ion-title>
+    <ion-title *ngFor="let i of incomes">Ingresos</ion-title>
     <ion-item-sliding *ngFor="let i of incomes">
       <ion-item (click)="addUpdateIncome(i)" >
         <ion-label color="success"> {{i.amount | number:'1.0-0'}}</ion-label>
@@ -63,6 +67,8 @@
       </ion-item>
     </ion-item-sliding>
   </ion-list>
+
+  
 
     <!-- Loading -->
     <ion-list *ngIf="loading">
@@ -75,7 +81,7 @@
 
     <!-- Sin gastos -->
     <div *ngIf="!loading && !expenses.length" class="empty">
-      <ion-icon name="cash"></ion-icon>
+      <ion-icon name="cash" style="height: 50px;"></ion-icon>
       <h3>Sin gastos</h3>
     </div>
 
@@ -89,7 +95,5 @@
         </ion-item>
       </ion-item-sliding>
     </ion-list>
-
-
 
 </ion-content>
